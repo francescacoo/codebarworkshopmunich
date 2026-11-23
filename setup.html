@@ -1,0 +1,144 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1. Setup · Iris workshop</title><link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet"></head><body><header><b>codebar Munich</b><a href="index.html">Home</a><a href="setup.html" class="on">1. Setup</a><a href="track-a.html">2a. Track A: Explorer</a><a href="track-b.html">2b. Track B: Builder</a><a href="files.html">Practice files</a></header><main><h1>Setup: get Iris's agent running (about 15 minutes)</h1>
+<p>Everyone does this first, whichever track you choose.</p>
+<p>We use <strong>opencode</strong>: a free, open-source AI assistant for your terminal. It
+reads the same agent and skill files as Claude Code, so Iris's agent runs
+in it without changes to the skills.</p>
+<blockquote>
+<p><strong>Privacy first.</strong> Today you work with <strong>Iris, a fictional person</strong>. Do
+NOT paste your own CV, address or phone number. Free models may store
+what you send them, so practice with Iris's invented data only.</p>
+</blockquote>
+<hr />
+<h2>1. Install opencode</h2>
+<p>Pick ONE:</p>
+<table>
+<thead>
+<tr>
+<th>Your computer</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mac or Linux</td>
+<td><code>curl -fsSL https://opencode.ai/v2/install | bash</code></td>
+</tr>
+<tr>
+<td>Windows (PowerShell)</td>
+<td><code>winget install --id Anomaly.OpenCode -e</code></td>
+</tr>
+<tr>
+<td>Windows, if winget is missing</td>
+<td>Install Node.js from nodejs.org, open a <strong>new</strong> PowerShell window, then <code>npm install -g opencode-ai</code></td>
+</tr>
+</tbody>
+</table>
+<p>You do <strong>not</strong> need WSL. (The opencode docs recommend it for the best
+experience, but opencode also runs directly on Windows.)</p>
+<p>After installing, close the terminal and open a new one in the project folder.</p>
+<p>Check it worked:</p>
+<pre><code class="language-bash">opencode --version
+</code></pre>
+<h2>2. Get the project</h2>
+<p><strong>Easiest, no extra software:</strong> open
+https://github.com/IvonneBenitesRodriguez/iris-job-agent, click the green
+<strong>Code</strong> button, choose <strong>Download ZIP</strong> and unzip it (for example in
+Documents). The folder may be called <code>iris-job-agent-main</code>.</p>
+<p><strong>If you use Git:</strong></p>
+<pre><code class="language-bash">git clone https://github.com/IvonneBenitesRodriguez/iris-job-agent
+cd iris-job-agent
+</code></pre>
+<p>Then open a terminal <strong>inside</strong> the folder: Windows 11 right-click the
+folder, <strong>Open in Terminal</strong>; Mac: right-click, <strong>New Terminal at Folder</strong>;
+Linux: right-click, <strong>Open in Terminal</strong>. Type <code>dir</code> (Windows) or <code>ls</code>
+(Mac, Linux): you should see <code>opencode.json</code>.</p>
+<p>Always start opencode from <strong>this main folder</strong>, not from a subfolder.</p>
+<h2>3. Turn on web search</h2>
+<p>The job search needs web search. In the current version (OpenCode 2),
+opencode asks the first time whether to allow web search: say yes.</p>
+<p>If you have an older version and web search does not work, set this in the
+same terminal window <strong>before</strong> you start opencode:</p>
+<table>
+<thead>
+<tr>
+<th>Mac / Linux</th>
+<th><code>export OPENCODE_ENABLE_EXA=1</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows PowerShell</td>
+<td><code>$env:OPENCODE_ENABLE_EXA = "true"</code></td>
+</tr>
+</tbody>
+</table>
+<p>(You must do this again every time you open a new terminal window.)</p>
+<h2>4. Start opencode and choose a free model</h2>
+<pre><code class="language-bash">opencode
+</code></pre>
+<ol>
+<li>Type <code>/models</code> and press Enter.</li>
+<li>Choose a model from the <strong>opencode</strong> provider. Models marked free need
+   no account and no credit card. Ask your coach which one worked best in
+   the pre-workshop test.</li>
+<li>If you have your own paid account (for example Anthropic or OpenAI), you
+   can use <code>/connect</code> instead. This is optional.</li>
+</ol>
+<h2>5. Check that the agent is Iris's agent</h2>
+<p>The project starts with the <strong>iris-job-agent</strong> by default. You will see its
+name at the bottom of the chat window. Type:</p>
+<pre><code>What can you help Iris with? List your skills.
+</code></pre>
+<p><strong>You should see six skills:</strong> <code>search-job-offers</code>, <code>contact-person</code>,
+<code>adapt-documents</code>, <code>translate-documents</code>, <code>style-application</code>,
+<code>application-tracker</code>.</p>
+<p>Seeing all six = you are ready. Go to your track:</p>
+<ul>
+<li><strong>Track A: Explorer</strong> → <a href="track-a.html">track-a-explorer.md</a>: use the agent and check its work.</li>
+<li><strong>Track B: Builder</strong> → <a href="track-b.html">track-b-builder.md</a>: change skills and build new ones.</li>
+</ul>
+<p>Not sure? Start with Track A. You can switch to B at any time.</p>
+<hr />
+<h2>If something goes wrong</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Try this</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opencode: command not found</code></td>
+<td>Close the terminal, open a new one, try again. With npm, check <code>npm config get prefix</code> is on your PATH.</td>
+</tr>
+<tr>
+<td>The agent shows the name <code>build</code>, not <code>iris-job-agent</code></td>
+<td>You are probably in the wrong folder. Quit (<code>Ctrl+C</code> twice), <code>cd iris-job-agent</code>, start again. You can also press <code>Tab</code> to switch agents.</td>
+</tr>
+<tr>
+<td>It does not list the six skills</td>
+<td>Same: wrong folder. Check that <code>.claude/skills/</code> exists in your folder (<code>ls .claude/skills</code>).</td>
+</tr>
+<tr>
+<td>"Model not found" or an error from the provider</td>
+<td>Run <code>/models</code> again and pick another one. Free models change often.</td>
+</tr>
+<tr>
+<td>The agent answers very slowly or in a strange way</td>
+<td>Switch to another free model with <code>/models</code>.</td>
+</tr>
+<tr>
+<td>Web search finds nothing</td>
+<td>Allow web search when opencode asks. On an older version, set <code>OPENCODE_ENABLE_EXA</code> (step 3) BEFORE starting opencode. Or use the fallback offer: <code>workshop/fallback/sample-offer.md</code>.</td>
+</tr>
+<tr>
+<td>It asks permission to run a command (<code>bash</code>)</td>
+<td>Read the command. Only allow it if it creates a PDF or Word file for Iris. If you are not sure, say no and ask a coach.</td>
+</tr>
+<tr>
+<td>You changed a skill but nothing happened</td>
+<td>Quit opencode (<code>Ctrl+C</code> twice) and start it again. Skills are read when it starts.</td>
+</tr>
+</tbody>
+</table></main><footer>codebar Munich · Iris is fictional. All her data is invented.</footer></body></html>

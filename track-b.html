@@ -1,0 +1,207 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2b. Track B: Builder · Iris workshop</title><link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet"></head><body><header><b>codebar Munich</b><a href="index.html">Home</a><a href="setup.html">1. Setup</a><a href="track-a.html">2a. Track A: Explorer</a><a href="track-b.html" class="on">2b. Track B: Builder</a><a href="files.html">Practice files</a></header><main><h1>Track B: Builder (change skills and build new ones)</h1>
+<p><strong>For:</strong> people who like to tinker. You do not need to know how to code.
+Skills are plain text. If you can edit a document, you can do this.
+<strong>Time:</strong> about 75 minutes. Do the warm-up and then pick the challenges you like.</p>
+<p><strong>Your goal:</strong> change how the agent behaves <strong>by editing text</strong>, then test
+that the change worked.</p>
+<p>Finished setup? (<a href="setup.html">00-setup.md</a>) Then start here.</p>
+<hr />
+<h2>The edit-test loop</h2>
+<p>Every challenge works the same way:</p>
+<ol>
+<li><strong>Edit</strong> a text file in your favorite editor (VS Code, Notepad, anything).</li>
+<li><strong>Restart opencode</strong> (<code>Ctrl+C</code> twice, then <code>opencode</code> again). Skills are
+   read when it starts.</li>
+<li><strong>Test</strong> with a normal sentence, the way Iris would say it.</li>
+<li><strong>Compare</strong> with what you expected. Not right? Go back to 1.</li>
+</ol>
+<p><strong>Safety net:</strong> broke something? Undo all your changes to the original skills:</p>
+<pre><code class="language-bash">git restore .claude/ styles/
+</code></pre>
+<p>(New files you created are not affected. Delete them by hand.)</p>
+<hr />
+<h2>Warm-up: read a skill like a map (10 min)</h2>
+<p>Open <code>.claude/skills/application-tracker/SKILL.md</code>. Mark the four parts:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Question it answers</th>
+<th>Where in the file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Frontmatter</strong> (between the <code>---</code> lines)</td>
+<td><em>What is this skill, and when should the agent pick it?</em></td>
+<td>top</td>
+</tr>
+<tr>
+<td><strong>When to use</strong></td>
+<td><em>What belongs here, and what belongs to another skill?</em></td>
+<td><code>## When to use</code></td>
+</tr>
+<tr>
+<td><strong>Steps</strong></td>
+<td><em>What does the agent do, in order?</em></td>
+<td><code>## Steps</code></td>
+</tr>
+<tr>
+<td><strong>Rules</strong></td>
+<td><em>What must it NEVER do?</em></td>
+<td><code>## Rules</code></td>
+</tr>
+</tbody>
+</table>
+<p>The most important line is the <strong><code>description:</code></strong>. The agent reads only the
+name and description of all six skills, and uses them to <em>choose</em>. The rest of
+the file is loaded only when the skill is picked.</p>
+<blockquote>
+<p>Questions to answer with your neighbor:
+1. Which words in the description of <code>search-job-offers</code> would make the agent pick it?
+2. Which rule in <code>application-tracker</code> stops the agent from guessing that Iris applied?</p>
+</blockquote>
+<hr />
+<h2>Challenge 1: Change one number (10 min) ⭐ starter</h2>
+<p><strong>Goal:</strong> the tracker should set the follow-up date <strong>3 days</strong> after applying,
+not 7.</p>
+<p><strong>Where:</strong> <code>.claude/skills/application-tracker/SKILL.md</code>, search for <code>7 days</code>.</p>
+<p><strong>Test:</strong> in opencode say <code>Iris applied today to Sunflower Preschool, Assistant Teacher</code>
+(if the agent asks for the offer, use <code>workshop/fallback/sample-offer.md</code>).
+Then check <code>applications/tracker.md</code>.</p>
+<p><strong>Done when:</strong> the follow-up date is 3 days after today.</p>
+<p><strong>Think about it:</strong> the number appears only once, in the steps. Imagine it
+appeared in three places and you changed only two. What would the agent do?
+That is why a good skill states each fact in exactly one place.</p>
+<hr />
+<h2>Challenge 2: Tighten the rules (15 min) ⭐ starter</h2>
+<p><strong>Goal:</strong> make the cover letter shorter and stricter.</p>
+<p><strong>Where:</strong> <code>.claude/skills/adapt-documents/SKILL.md</code>, sections <em>Cover letter</em> and <em>Rules</em>.</p>
+<p><strong>Make these changes:</strong>
+- Maximum <strong>200 words</strong> instead of 300 (change it in every place it appears).
+- Add a rule: <em>the first sentence of the letter must not start with "I"</em>.
+- Add the phrases "I am writing to" and "team player" to the banned list.</p>
+<p><strong>Test:</strong> <code>Adapt Iris's resume and cover letter into English for the offer in workshop/fallback/sample-offer.md</code>
+(answer <strong>January 5, 2027</strong> if it asks for a start date). Then, in a second terminal:</p>
+<pre><code class="language-bash">wc -w applications/*/cover-letter.md
+head -3 applications/*/cover-letter.md
+</code></pre>
+<p><strong>Done when:</strong> 200 words or fewer, a first sentence that does not start with "I",
+and none of the banned phrases.</p>
+<p><strong>Think about it:</strong> did it follow ALL your new rules? Which one did the AI forget?
+How would you rewrite that rule so it is harder to forget? (Hint: put the check
+into the <em>Steps</em>: "before saving, count the words".)</p>
+<hr />
+<h2>Challenge 3: Another country (20 min) ⭐⭐</h2>
+<p><strong>Goal:</strong> Iris now wants a job in <strong>Munich</strong>. A German application follows
+different rules than a US one.</p>
+<p><strong>Do NOT overwrite <code>adapt-documents</code>.</strong> Make a <strong>copy</strong> as a new skill:</p>
+<pre><code class="language-bash">cp -r .claude/skills/adapt-documents .claude/skills/adapt-documents-de
+</code></pre>
+<p>Then edit <code>.claude/skills/adapt-documents-de/SKILL.md</code>:</p>
+<ol>
+<li>Change <strong><code>name:</code></strong> to <code>adapt-documents-de</code>. It must be exactly the same as the
+   folder name, or the skill will not load. If you forget, you get <strong>no error</strong>:
+   the copy is silently ignored, because two skills cannot share one name.</li>
+<li>Rewrite the <strong><code>description:</code></strong> so that it is about German applications
+   ("Bewerbung", "Kita in Munich", ...).</li>
+<li>Rewrite <strong>US adaptation</strong> as <strong>German adaptation</strong>. Think about what a German
+   Bewerbung usually has: <em>Lebenslauf</em> (not "Resume"), the language of the offer,
+   DD.MM.YYYY or MM/YYYY dates, A4 paper, more detail on education, the
+   "Sehr geehrte Damen und Herren" greeting. Decide which personal details stay.</li>
+<li>Update the <strong>Cover letter</strong> and <strong>Rules</strong> (language, length) to match.</li>
+<li>In <code>adapt-documents</code> (the original), add to <em>When to use</em>:
+   <code>NOT for applications in Germany → use adapt-documents-de</code>.</li>
+</ol>
+<p><strong>Test:</strong> <code>Create a German application for the offer in workshop/fallback/sample-offer-de.md</code></p>
+<p><strong>Done when:</strong> the agent uses <strong>your</strong> skill (look for <code>Skill "adapt-documents-de"</code>
+in the chat) and the documents are in German with the rules you chose.</p>
+<p><strong>Think about it:</strong> the agent picked a skill on its own. What would you change in
+the descriptions if it picked the wrong one?</p>
+<hr />
+<h2>Challenge 4: Build a brand-new skill (30 min) ⭐⭐</h2>
+<p><strong>Goal:</strong> add a seventh skill, <strong><code>interview-prep</code></strong>. When Iris is invited to an
+interview, it prepares questions and answer outlines for that exact offer.</p>
+<p><strong>Start from the template:</strong></p>
+<pre><code class="language-bash">mkdir .claude/skills/interview-prep
+cp workshop/templates/interview-prep/SKILL.md .claude/skills/interview-prep/SKILL.md
+</code></pre>
+<p>Open the new file and replace every <strong>TODO</strong> with your own text.
+<em>(No peeking at the solutions until you tried! Ask a coach.)</em></p>
+<p><strong>Test 1: does it load?</strong> After restarting, ask: <code>What skills do you have?</code>
+Is <code>interview-prep</code> in the list of seven?</p>
+<p><strong>Test 2: does it trigger?</strong> Say it the way Iris would, <strong>without</strong> saying the
+skill name:</p>
+<pre><code>I have an interview at Sunflower Preschool next week. Help me get ready.
+</code></pre>
+<p>(Make sure the offer exists first: adapt documents for <code>workshop/fallback/sample-offer.md</code>.)</p>
+<p><strong>Test 3: does it obey the rules?</strong>
+- [ ] Every answer outline uses only facts from Iris's documents?
+- [ ] The file is in <code>applications/&lt;school&gt;-&lt;position&gt;/interview-prep.md</code>?
+- [ ] The agent did NOT write into <code>profile/</code>?</p>
+<p><strong>Done when:</strong> all three tests pass. <strong>If the skill is not picked,</strong> the
+<code>description:</code> is almost always the problem. Add the words Iris would really say.</p>
+<hr />
+<h2>Challenge 5: Give the agent a colleague (20 min) ⭐⭐⭐</h2>
+<p><strong>Goal:</strong> an <strong>agent</strong> is not only a bigger skill. It is a different <em>worker</em>
+with its own role and <strong>its own permissions</strong>. Build a reviewer who can read
+everything and change nothing.</p>
+<p><strong>Start from the template:</strong></p>
+<pre><code class="language-bash">cp workshop/templates/cv-checker.md .opencode/agents/cv-checker.md
+</code></pre>
+<p>Replace every <strong>TODO</strong>. Note the <code>permission:</code> block at the top: <code>edit: deny</code>
+means this agent <em>cannot</em> write files, however it is asked.</p>
+<p><strong>Test:</strong> after restarting, in the chat:</p>
+<pre><code>@cv-checker check the resume and cover letter in applications/sunflower-preschool-assistant-teacher
+</code></pre>
+<p>(Use <code>@</code> and pick it from the list. Replace the folder name with yours.)
+Then try to trick it: <code>@cv-checker fix the resume for me</code>. It should refuse
+or fail to write.</p>
+<p><strong>Done when:</strong> you get a table of rules with evidence, and the checker could
+not change any file.</p>
+<p><strong>Think about it:</strong> which of these belongs in a <em>skill</em> and which in an <em>agent</em>?
+- "How to adapt a resume for the US"
+- "Who is allowed to change files"
+- "The steps for tracking an application"
+- "A strict reviewer personality"</p>
+<hr />
+<h2>Challenge 6: Make it your own (free time) ⭐⭐⭐</h2>
+<p>Follow the "Make it your own" steps in the main <code>README.md</code>, with a <strong>fictional</strong>
+person:</p>
+<ol>
+<li>Invent a person (not you!) and write their Lebenslauf in <code>profile/</code>.</li>
+<li>Change the roles and the city in <code>search-job-offers</code>.</li>
+<li>Pick your own colors in <code>styles/brand.md</code>.</li>
+<li>Update <em>Who Iris is</em> in <code>.claude/agents/iris-job-agent.md</code>, then run
+   <code>bash scripts/sync-opencode-agent.sh</code> so the opencode agent gets the same
+   text.</li>
+</ol>
+<blockquote>
+<p><strong>Keep it fictional.</strong> Do not put your real CV, phone number or address in
+this project while using a free model.</p>
+</blockquote>
+<hr />
+<h2>If a skill does not show up</h2>
+<p>Go through this list in order:</p>
+<ol>
+<li>Is the file called exactly <code>SKILL.md</code> (capital letters)?</li>
+<li>Is it inside its own folder: <code>.claude/skills/&lt;name&gt;/SKILL.md</code>?</li>
+<li>Does <code>name:</code> in the file match the folder name exactly? Only lowercase letters,
+   numbers and single hyphens.</li>
+<li>Does the file start with <code>---</code>, then <code>name:</code> and <code>description:</code>, then <code>---</code>?
+   No tabs, no missing colons.</li>
+<li>Did you restart opencode?</li>
+<li>Check what opencode sees (second terminal, same folder):</li>
+</ol>
+<p><code>bash
+   opencode debug skill | grep '"name"'</code></p>
+<p>If your skill is in that list but the agent does not pick it, improve the
+<code>description:</code>.</p>
+<hr />
+<h2>Wrap-up questions (for the group)</h2>
+<ol>
+<li>What is the difference between a skill, an agent and a prompt, in your own words?</li>
+<li>Which change did the AI follow best? Which did it ignore?</li>
+<li>Which rules did you put into text, and which should be a <em>permission</em> instead?</li>
+<li>What would you automate in your own work with a skill?</li>
+</ol></main><footer>codebar Munich · Iris is fictional. All her data is invented.</footer></body></html>
