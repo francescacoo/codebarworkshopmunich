@@ -62,17 +62,19 @@ the file is loaded only when the skill is picked.</p>
 2. Which rule in <code>application-tracker</code> stops the agent from guessing that Iris applied?</p>
 </blockquote>
 <hr />
-<h2>Challenge 1: Change one number - starter</h2>
-<p><strong>Goal:</strong> the tracker should set the follow-up date <strong>3 days</strong> after applying,
-not 7.</p>
-<p><strong>Where:</strong> <code>.claude/skills/application-tracker/SKILL.md</code>, search for <code>7 days</code>.</p>
-<p><strong>Test:</strong> in opencode say <code>Iris applied today to Sunflower Preschool, Assistant Teacher</code>
+<h2>Challenge 1: Change what the agent says back - starter</h2>
+<p><strong>Goal:</strong> when Iris says she applied, the tracker should confirm in
+<strong>one short sentence</strong> and end with <strong>"Good luck, Iris!"</strong>.</p>
+<p><strong>Where:</strong> <code>.claude/skills/application-tracker/SKILL.md</code>, section <em>When Iris says she applied</em>,
+step 4: <code>Confirm to Iris what you saved.</code></p>
+<p><strong>Change it to:</strong> <code>Confirm to Iris in ONE short sentence what you saved. End with "Good luck, Iris!"</code></p>
+<p><strong>Test:</strong> restart opencode, then say <code>Iris applied today to Sunflower Preschool, Assistant Teacher</code>
 (if the agent asks for the offer, use <code>workshop/fallback/sample-offer.md</code>).
-Then check <code>applications/tracker.md</code>.</p>
-<p><strong>Done when:</strong> the follow-up date is 3 days after today.</p>
-<p><strong>Think about it:</strong> the number appears only once, in the steps. Imagine it
-appeared in three places and you changed only two. What would the agent do?
-That is why a good skill states each fact in exactly one place.</p>
+Read the answer.</p>
+<p><strong>Done when:</strong> the confirmation is one sentence and ends with "Good luck, Iris!".</p>
+<p><strong>Think about it:</strong> you did not touch any code. You changed one sentence of text,
+and the agent behaves differently. Now try a bigger change: make it confirm in German.
+Which part of the skill did you change this time?</p>
 <hr />
 <h2>Challenge 2: Tighten the rules - starter</h2>
 <p><strong>Goal:</strong> make the cover letter shorter and stricter.</p>
