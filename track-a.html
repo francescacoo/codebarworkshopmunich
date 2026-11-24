@@ -23,10 +23,23 @@ is only useful if you can tell when it is right.</p>
 
 <hr />
 <h2>Mission 1: Find job offers</h2>
-<pre><code>Use the iris-job-agent to search job offers
+<pre><code>Use the iris-job-agent to search job offers but limit to the last 2 days and to max 5 offers
 </code></pre>
 <p>This uses the skill <strong>search-job-offers</strong>. It can take a few minutes, because
 it searches the web for each target role.</p>
+<p><strong>Watch the agent work.</strong> While it runs, you will see a line like
+<em>"Used 15 Skill, Read, Glob, Web Search, Execute"</em>. Click it to open the details.
+You will see every step the agent takes, in order:</p>
+<ul>
+<li><strong>Loaded ... skill</strong>: which skill it is following (here: <code>search-job-offers</code>).</li>
+<li><strong>Read</strong>: which files it opens (for example Iris's Lebenslauf).</li>
+<li><strong>Glob</strong>: where it looks for files.</li>
+<li><strong>Web Search</strong>: what it searches for on the internet.</li>
+<li><strong>Execute</strong>: commands it runs. Read these too.</li>
+</ul>
+<p>Look at the steps and ask yourself: <strong>is it doing what the skill says?</strong>
+Did it read the right file? Did it search for the right roles? This is how you
+check an agent, not only by reading the final answer.</p>
 <p><strong>Check yourself:</strong>
 - [ ] Is every offer in Brooklyn, Queens or Manhattan?
 - [ ] Is every offer entry level (no "Lead Teacher")?
@@ -35,6 +48,12 @@ it searches the web for each target role.</p>
 - [ ] Which offers are ranked High? Does the ranking match the rules in the skill?</p>
 <p><strong>Web search did not work or is slow?</strong> Skip to Mission 2 with the practice
 offer: <code>workshop/fallback/sample-offer.md</code>.</p>
+<p><strong>What now?</strong> The agent will probably suggest a next step. You can follow it,
+or ask for something else and see how it behaves. It is a conversation, so try things!</p>
+<p><strong>Then look behind the curtain.</strong> Which skill file is guiding the agent? (Hint: the
+agent told you its name when it loaded it.) Find the file in the project folder and
+read it. Does anything not make sense? Is there something you would do differently?
+Write it down. You will use it in Track B.</p>
 <h2>Mission 2: Find the contact person</h2>
 <p>Pick offer number 1 from your list (or the practice offer), then ask:</p>
 <pre><code>Find the contact person for offer number 1 and write a short message for them
@@ -53,6 +72,17 @@ director name, the rules were broken. Write it down: that is a real AI risk.</p>
 </code></pre>
 <p>Skill: <strong>adapt-documents</strong>. The agent will probably ask you a question (her
 earliest start date). Answer: <strong>January 5, 2027</strong>.</p>
+<p><strong>Permission required.</strong> At some point the agent will stop and ask you for
+permission, for example to run a command. You will see three buttons: <em>Deny</em>,
+<em>Allow once</em> and <em>Allow always</em>. Do not click without reading! Read what it
+wants to do:</p>
+<ul>
+<li>Which <strong>file</strong> does it want to change? Is it in <code>applications/</code> (OK) or in <code>profile/</code> (not OK)?</li>
+<li>What does the command do? For example, <code>perl ... 's/A/B/g' file</code> means "replace A with B in this file". <code>grep</code> means "search for this text".</li>
+</ul>
+<p><strong>Ask yourself:</strong> did it ask for anything strange? Could you understand what it was
+asking? If you do not understand a command, choose <em>Deny</em> or ask a coach. While you are
+learning, prefer <em>Allow once</em> over <em>Allow always</em>.</p>
 <p><strong>Audit the result.</strong> Open <code>resume.md</code> and <code>cover-letter.md</code> in your
 application folder and check each line against the skill's rules:</p>
 <table>
@@ -80,28 +110,8 @@ application folder and check each line against the skill's rules:</p>
 <td></td>
 </tr>
 <tr>
-<td>Dates in MM/YYYY format</td>
-<td><code>resume.md</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Resume: 450 words or fewer</td>
-<td>run <code>wc -w applications/*/resume.md</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Cover letter: 300 words or fewer</td>
-<td>run <code>wc -w applications/*/cover-letter.md</code></td>
-<td></td>
-</tr>
-<tr>
-<td>No banned words: "passionate", "leverage", "dynamic", "I am excited to apply"</td>
-<td>search the files</td>
-<td></td>
-</tr>
-<tr>
-<td>Same email and phone as the Lebenslauf</td>
-<td>compare with <code>profile/</code></td>
+<td>Resume: 450 words or fewer. Cover letter: 300 words or fewer</td>
+<td>run <code>wc -w applications/*/resume.md applications/*/cover-letter.md</code></td>
 <td></td>
 </tr>
 <tr>
@@ -109,30 +119,13 @@ application folder and check each line against the skill's rules:</p>
 <td>compare with <code>profile/</code></td>
 <td></td>
 </tr>
-<tr>
-<td>Offer text copied word for word in <code>offer.md</code></td>
-<td>compare with the offer</td>
-<td></td>
-</tr>
-<tr>
-<td>"Keywords: match / missing" list at the end of <code>offer.md</code></td>
-<td><code>offer.md</code></td>
-<td></td>
-</tr>
 </tbody>
 </table>
-<p><strong>Discuss with your neighbor:</strong> which rule did the agent miss, if any? How
-would you change the skill so it would not miss it next time? (That is Track B!)</p>
-<h2>Mission 4: Translate into Spanish (10 min)</h2>
+<h2>Mission 4: Translate the documents (10 min)</h2>
+<p>Choose Spanish, or any language you can read, so you can judge the result.</p>
 <pre><code>Translate the resume and cover letter into Spanish
 </code></pre>
 <p>Skill: <strong>translate-documents</strong>.</p>
-<p><strong>Check yourself:</strong>
-- [ ] Names (Freie Universität Berlin, Kids Code Club Berlin) were NOT translated?
-- [ ] Greeting is "Estimado equipo de selección:" and the polite form "usted"?
-- [ ] Numbers, dates, email and phone are unchanged?
-- [ ] Did it give you a list of words it was unsure about?
-- [ ] If you speak Spanish: does it sound natural?</p>
 <h2>Mission 5: Track the application (5 min)</h2>
 <pre><code>Iris applied to this job today
 </code></pre>
