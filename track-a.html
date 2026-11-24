@@ -20,6 +20,7 @@ is only useful if you can tell when it is right.</p>
 </code></pre>
 <p>(How to open a terminal: see the <a href="prework.html">prework</a>. Tip: on Mac, right-click the folder and choose <em>New Terminal at Folder</em>; on Windows, open the folder, type <code>powershell</code> in the address bar and press Enter.)</p>
 <p><strong>Check it worked:</strong> at the bottom of the OpenCode window, next to the text box, you should see the agent name <strong>Iris-Job-Agent</strong>. If you see another name, click it and choose Iris-Job-Agent.</p>
+<p><img src="images/opencode-agent-selector.png" alt="OpenCode text box with the agent name Iris-Job-Agent and the model shown below it" style="max-width:100%;border:1px solid #D3E4F4;border-radius:12px;margin:8px 0"></p>
 
 <hr />
 <h2>Mission 1: Find job offers</h2>
@@ -30,6 +31,7 @@ it searches the web for each target role.</p>
 <p><strong>Watch the agent work.</strong> While it runs, you will see a line like
 <em>"Used 15 Skill, Read, Glob, Web Search, Execute"</em>. Click it to open the details.
 You will see every step the agent takes, in order:</p>
+<p><img src="images/agent-steps.png" alt="Opened details showing the steps the agent took: loaded skill, read files, glob, web search" style="max-width:100%;border:1px solid #D3E4F4;border-radius:12px;margin:8px 0"></p>
 <ul>
 <li><strong>Loaded ... skill</strong>: which skill it is following (here: <code>search-job-offers</code>).</li>
 <li><strong>Read</strong>: which files it opens (for example Iris's Lebenslauf).</li>
@@ -80,6 +82,7 @@ wants to do:</p>
 <li>Which <strong>file</strong> does it want to change? Is it in <code>applications/</code> (OK) or in <code>profile/</code> (not OK)?</li>
 <li>What does the command do? For example, <code>perl ... 's/A/B/g' file</code> means "replace A with B in this file". <code>grep</code> means "search for this text".</li>
 </ul>
+<p><img src="images/permission-required.png" alt="Permission required box with the buttons Deny, Allow always and Allow once" style="max-width:100%;border:1px solid #D3E4F4;border-radius:12px;margin:8px 0"></p>
 <p><strong>Ask yourself:</strong> did it ask for anything strange? Could you understand what it was
 asking? If you do not understand a command, choose <em>Deny</em> or ask a coach. While you are
 learning, prefer <em>Allow once</em> over <em>Allow always</em>.</p>
