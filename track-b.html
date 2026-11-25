@@ -163,32 +163,7 @@ skill name:</p>
 <p><strong>Done when:</strong> all three tests pass. <strong>If the skill is not picked,</strong> the
 <code>description:</code> is almost always the problem. Add the words Iris would really say.</p>
 <hr />
-<h2>Challenge 5: Give the agent a colleague </h2>
-<p><strong>Idea:</strong> an <strong>agent</strong> is not only a bigger skill. It is a different <em>worker</em>
-with its own role and <strong>its own permissions</strong>. Build a reviewer who can read
-everything and change nothing.</p>
-<p><strong>Start from the template:</strong></p>
-<pre><code class="language-bash">cp workshop/templates/cv-checker.md .opencode/agents/cv-checker.md
-</code></pre>
-<p>Replace every <strong>TODO</strong>. Note the <code>permission:</code> block at the top: <code>edit: deny</code>
-means this agent <em>cannot</em> write files, however it is asked.</p>
-<p><strong>Test:</strong> after restarting, in the chat:</p>
-<pre><code>@cv-checker check the resume and cover letter in applications/sunflower-preschool-assistant-teacher
-</code></pre>
-<p>(Use <code>@</code> and pick it from the list. Replace the folder name with yours.)
-Then try to trick it: <code>@cv-checker fix the resume for me</code>. It should refuse
-or fail to write.</p>
-<p><strong>Done when:</strong> you get a table of rules with evidence, and the checker could
-not change any file.</p>
-<p><strong>Think about it:</strong> sort these. Which belong in a <em>skill</em> and which in an <em>agent</em>?</p>
-<ul>
-<li>"How to adapt a resume for the US"</li>
-<li>"Who is allowed to change files"</li>
-<li>"The steps for tracking an application"</li>
-<li>"A strict reviewer personality"</li>
-</ul>
-<hr />
-<h2>Challenge 6: Make it your own </h2>
+<h2>Challenge 5: Make it your own </h2>
 <p>Turn the agent into a job-search agent for someone else. Follow the "Make it your own" steps in the main <code>README.md</code>, with a <strong>fictional</strong>
 person (a circus acrobat? a retired pirate? a baker who wants to become an astronaut?):</p>
 <ol>
