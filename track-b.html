@@ -24,9 +24,9 @@ that the change worked.</p>
 
 <hr />
 <h2>The edit-test loop</h2>
-<p>Every challenge works the same way:</p>
+<p>A suggested way to work, as guidance only:</p>
 <ol>
-<li><strong>Edit</strong> a text file in your favorite editor (VS Code, Notepad, anything).</li>
+<li><strong>Change something</strong> in a skill: the instructions, a rule, a tip, whatever you like. Use any editor (VS Code, Notepad, anything).</li>
 <li><strong>Restart opencode</strong> (<code>Ctrl+C</code> twice, then <code>opencode</code> again). Skills are
    read when it starts.</li>
 <li><strong>Test</strong> with a normal sentence, the way Iris would say it.</li>
@@ -73,25 +73,22 @@ that the change worked.</p>
 <p>The most important line is the <strong><code>description:</code></strong>. The agent reads only the
 name and description of all six skills, and uses them to <em>choose</em>. The rest of
 the file is loaded only when the skill is picked.</p>
-<blockquote>
-<p>Questions to answer with your neighbor:
-1. Which words in the description of <code>search-job-offers</code> would make the agent pick it?
-2. Which rule in <code>application-tracker</code> stops the agent from guessing that Iris applied?</p>
-</blockquote>
 <hr />
 <h2>Challenge 1: Change what the agent says back - starter</h2>
-<p><strong>Goal:</strong> when Iris says she applied, the tracker should confirm in
-<strong>one short sentence</strong> and end with <strong>"Good luck, Iris!"</strong>.</p>
+<p><strong>Idea:</strong> change how the tracker confirms when Iris says she applied. For example,
+make it confirm in <strong>one short sentence</strong> and end with <strong>"Good luck, Iris!"</strong>.
+Or pick something different that you like better.</p>
 <p><strong>Where:</strong> <code>.claude/skills/application-tracker/SKILL.md</code>, section <em>When Iris says she applied</em>,
 step 4: <code>Confirm to Iris what you saved.</code></p>
-<p><strong>Change it to:</strong> <code>Confirm to Iris in ONE short sentence what you saved. End with "Good luck, Iris!"</code></p>
+<p><strong>You could change it to, for example:</strong> <code>Confirm to Iris in ONE short sentence what you saved. End with "Good luck, Iris!"</code></p>
 <p><strong>Test:</strong> restart opencode, then say <code>Iris applied today to Sunflower Preschool, Assistant Teacher</code>
 (if the agent asks for the offer, use <code>workshop/fallback/sample-offer.md</code>).
 Read the answer.</p>
-<p><strong>Done when:</strong> the confirmation is one sentence and ends with "Good luck, Iris!".</p>
+<p><strong>Done when:</strong> the confirmation looks the way you asked, for example one sentence ending with "Good luck, Iris!".</p>
 <p><strong>Think about it:</strong> you did not touch any code. You changed one sentence of text,
-and the agent behaves differently. Now try a bigger change: make it confirm in German.
-Which part of the skill did you change this time?</p>
+and the agent behaves differently. Now try a bigger change, for example making it confirm in German.
+You could also just ask for German in the chat. What is the difference between asking in the chat
+and changing the skill?</p>
 <hr />
 <h2>Challenge 2: Tighten the rules - starter</h2>
 <p><strong>Goal:</strong> make the cover letter shorter and stricter.</p>
