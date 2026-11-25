@@ -137,15 +137,28 @@ in the chat) and the documents are in German with the rules you chose.</p>
 <p><strong>Think about it:</strong> the agent picked a skill on its own. If it had picked the wrong one,
 what would you change in the descriptions?</p>
 <hr />
-<h2>Challenge 4: Build a brand-new skill </h2>
+<h2>Challenge 4: Write a new skill </h2>
 <p><strong>Idea:</strong> add a seventh skill, <strong><code>interview-prep</code></strong>. When Iris is invited to an
 interview, it prepares questions and answer outlines for that exact offer. Want a different skill
 instead (salary negotiation, a thank-you note, a pep talk)? Go for it.</p>
-<p><strong>Start from the template:</strong></p>
+<p><strong>Step 1: read the template.</strong> Open <code>workshop/templates/interview-prep/SKILL.md</code>.
+It is a half-written skill with <strong>TODO</strong> marks. Read it like in the warm-up: what does each part say?</p>
+<p><strong>Step 2: make your own copy.</strong> The copy must be at <code>.claude/skills/interview-prep/SKILL.md</code>
+(the file must keep the name <code>SKILL.md</code>). Choose <strong>one</strong> way:</p>
+<p><strong>Without the terminal:</strong> in your file explorer, open the folder <code>.claude/skills</code>
+(it starts with a dot, so it may be hidden: on Mac press <code>Cmd+Shift+.</code> in Finder; on Windows, in Explorer choose <em>View</em>, then <em>Show</em>, then <em>Hidden items</em>).
+Create a new folder called <code>interview-prep</code>. Copy the template file into it.</p>
+<p><strong>With the terminal</strong> (in the project folder):</p>
+<p>Mac or Linux:</p>
 <pre><code class="language-bash">mkdir .claude/skills/interview-prep
 cp workshop/templates/interview-prep/SKILL.md .claude/skills/interview-prep/SKILL.md
 </code></pre>
-<p>Open the new file and replace every <strong>TODO</strong> with your own text.
+<p>Windows (PowerShell):</p>
+<pre><code class="language-powershell">mkdir .claude\skills\interview-prep
+copy workshop\templates\interview-prep\SKILL.md .claude\skills\interview-prep\SKILL.md
+</code></pre>
+<p><strong>Step 3: make it yours.</strong> Open your copy and replace every <strong>TODO</strong> with your own text.
+Change whatever you like: the number of questions, the tone, an extra rule.
 <em>(Stuck? Ask a coach.)</em></p>
 <p><strong>Test 1: does it load?</strong> After restarting, ask: <code>What skills do you have?</code>
 Is <code>interview-prep</code> in the list of seven?</p>
