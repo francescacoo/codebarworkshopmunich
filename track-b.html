@@ -167,12 +167,11 @@ skill name:</p>
 <p>Turn the agent into a job-search agent for someone else. Follow the "Make it your own" steps in the main <code>README.md</code>, with a <strong>fictional</strong>
 person (a circus acrobat? a retired pirate? a baker who wants to become an astronaut?):</p>
 <ol>
-<li>Invent a person (not you!) and write their CV in <code>profile/</code>.</li>
+<li>Invent a person (not you!). In your editor, replace the text in <code>profile/lebenslauf/iris-lebenslauf.md</code> with their CV. The skills read exactly this file, and the agent itself is not allowed to write in <code>profile/</code>.</li>
 <li>Change the roles and the city in <code>search-job-offers</code>.</li>
 <li>Pick your own colors in <code>styles/brand.md</code>.</li>
-<li>Update <em>Who Iris is</em> in <code>.claude/agents/iris-job-agent.md</code>, then run
-   <code>bash scripts/sync-opencode-agent.sh</code> so the opencode agent gets the same
-   text.</li>
+<li>In <code>.opencode/agents/iris-job-agent.md</code>, rewrite the part <em>Who Iris is</em> for your person.</li>
+<li>Restart opencode and say <code>Search job offers</code>.</li>
 </ol>
 <blockquote>
 <p><strong>Keep it fictional.</strong> Do not put your real CV, phone number or address in
