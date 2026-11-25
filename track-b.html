@@ -163,7 +163,59 @@ skill name:</p>
 <p><strong>Done when:</strong> all three tests pass. <strong>If the skill is not picked,</strong> the
 <code>description:</code> is almost always the problem. Add the words Iris would really say.</p>
 <hr />
-<h2>Challenge 5: Make it your own </h2>
+<h2>Challenge 5: Two tiny skills, with tools</h2>
+<p><strong>Idea:</strong> build a small skill that helps Iris through the search. Pick one, or do both:</p>
+<ul>
+<li><strong><code>monday-plan</code></strong>: Iris says "What should I do this week?" and gets a short plan with the follow-ups to send, the interviews to prepare for, and one encouraging line.</li>
+<li><strong><code>after-a-no</code></strong>: Iris says "Sunflower Preschool said no" and gets a kind note, three next steps, and the tracker updated to <em>Rejected</em>.</li>
+</ul>
+<p><strong>New idea, tools:</strong> a <em>tool</em> is something the agent can <em>do</em>: read a file, write a file, search the web, run a terminal command.
+A skill can say which tools it may use, and which it must leave alone. Add a section like this to each of your skills:</p>
+<pre><code>## Tools
+- Read: applications/tracker.md
+- Write: only applications/weekly-plan.md
+- NEVER search the web. NEVER use the terminal.
+</code></pre>
+<p>Careful: this is an <strong>instruction in text</strong>, so the AI can still forget it. The real lock is in the agent's <code>permission:</code> block at the top of
+<code>.opencode/agents/iris-job-agent.md</code>. Open it and read it: you will see <code>profile/**</code> is locked and the terminal asks first.</p>
+<p><strong>Start from this skeleton:</strong></p>
+<pre><code class="language-bash">mkdir .claude/skills/monday-plan
+</code></pre>
+<p>Create <code>.claude/skills/monday-plan/SKILL.md</code> and write your own text under each heading:</p>
+<pre><code>---
+name: monday-plan
+description: (What it does, and the words Iris would really say, e.g. "what should I do this week", "plan my week")
+---
+
+## When to use
+- (When?)
+- NOT for (which other skill covers that? use its exact name)
+
+## Steps
+1. Read applications/tracker.md.
+2. (Which rows matter? Follow-ups due, interviews coming up...)
+3. (Write the plan. How long? What tone?)
+4. Tell Iris where the file is.
+
+## Tools
+- (What may it read? Where may it write?)
+- NEVER (what must it not do?)
+
+## Rules
+- NEVER invent applications or dates that are not in the tracker.
+- Iris is the only one who contacts schools. NEVER send anything for her.
+</code></pre>
+<p>For <code>after-a-no</code> use the same skeleton. Hint: the tracker skill already says that "Rejected" is a status and that only Iris can change a status. Your skill can use that.</p>
+<p><strong>Test:</strong> the tracker needs a few rows. If it is empty, first say
+<code>Iris applied today to Sunflower Preschool, Assistant Teacher</code> (and one more of your own).
+Restart opencode, then say it the way Iris would, <strong>without</strong> the skill name:</p>
+<pre><code>What should I do this week?
+Sunflower Preschool said no.
+</code></pre>
+<p><strong>Done when:</strong> the skill is picked, the answer sounds the way you wanted, and the agent used only the tools you allowed.</p>
+<p><strong>Think about it:</strong> what is the difference between telling a skill "never search the web" and the agent's permission block saying it? Which would you trust more?</p>
+<hr />
+<h2>Challenge 6: Make it your own </h2>
 <p>Turn the agent into a job-search agent for someone else. Follow the "Make it your own" steps in the main <code>README.md</code>, with a <strong>fictional</strong>
 person (a circus acrobat? a retired pirate? a baker who wants to become an astronaut?):</p>
 <ol>
