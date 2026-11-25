@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Track B: Builder · Iris workshop</title><link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet"></head><body><header><b>codebar Munich</b><a href="prework.html">Prework</a><a href="index.html">Home</a><a href="track-a.html">Track A: Explorer</a><a href="track-b.html" class="on">Track B: Builder</a></header><main><h1>Track B: Builder (change skills and build new ones)</h1>
 <p><strong>For:</strong> people who like to tinker. You do not need to know how to code.
 Skills are plain text. If you can edit a document, you can do this.
-Do the warm-up and then pick the challenges you like.</p>
+Do the warm-up, then pick the challenges that look fun. They are ideas, not a checklist: do them in any order, skip some, or invent your own.</p>
 <p><strong>Your goal:</strong> change how the agent behaves <strong>by editing text</strong>, then test
 that the change worked.</p>
 <p>Finished the <a href="prework.html">prework</a>? Then start here.</p>
@@ -91,28 +91,28 @@ You could also just ask for German in the chat. What is the difference between a
 and changing the skill?</p>
 <hr />
 <h2>Challenge 2: Tighten the rules - starter</h2>
-<p><strong>Goal:</strong> make the cover letter shorter and stricter.</p>
+<p><strong>Idea:</strong> make the cover letter shorter and stricter. Use my suggestions, or invent your own rules.</p>
 <p><strong>Where:</strong> <code>.claude/skills/adapt-documents/SKILL.md</code>, sections <em>Cover letter</em> and <em>Rules</em>.</p>
-<p><strong>Make these changes:</strong></p>
+<p><strong>Suggested changes (pick some, or add your own):</strong></p>
 <ul>
 <li>Maximum <strong>200 words</strong> instead of 300 (change it in every place it appears).</li>
 <li>Add a rule: <em>the first sentence of the letter must not start with "I"</em>.</li>
 <li>Add the phrases "I am writing to" and "team player" to the banned list.</li>
+<li>Your own idea, for example: <em>end every letter with a one-line joke about preschool</em>.</li>
 </ul>
 <p><strong>Test:</strong> <code>Adapt Iris's resume and cover letter into English for the offer in workshop/fallback/sample-offer.md</code>
 (answer <strong>January 5, 2027</strong> if it asks for a start date). Then, in a second terminal:</p>
 <pre><code class="language-bash">wc -w applications/*/cover-letter.md
 head -3 applications/*/cover-letter.md
 </code></pre>
-<p><strong>Done when:</strong> 200 words or fewer, a first sentence that does not start with "I",
-and none of the banned phrases.</p>
+<p><strong>Done when:</strong> the letter follows the rules you chose. (With my suggestions: 200 words or fewer, a first sentence that does not start with "I", and none of the banned phrases.)</p>
 <p><strong>Think about it:</strong> did it follow ALL your new rules? Which one did the AI forget?
 How would you rewrite that rule so it is harder to forget? (Hint: put the check
 into the <em>Steps</em>: "before saving, count the words".)</p>
 <hr />
 <h2>Challenge 3: Another country </h2>
-<p><strong>Goal:</strong> Iris now wants a job in <strong>Munich</strong>. A German application follows
-different rules than a US one.</p>
+<p><strong>Idea:</strong> Iris now wants a job in <strong>Munich</strong>. A German application follows
+different rules than a US one, so give her a second skill for it.</p>
 <p><strong>Do NOT overwrite <code>adapt-documents</code>.</strong> Make a <strong>copy</strong> as a new skill:</p>
 <pre><code class="language-bash">cp -r .claude/skills/adapt-documents .claude/skills/adapt-documents-de
 </code></pre>
@@ -134,18 +134,19 @@ different rules than a US one.</p>
 <p><strong>Test:</strong> <code>Create a German application for the offer in workshop/fallback/sample-offer-de.md</code></p>
 <p><strong>Done when:</strong> the agent uses <strong>your</strong> skill (look for <code>Skill "adapt-documents-de"</code>
 in the chat) and the documents are in German with the rules you chose.</p>
-<p><strong>Think about it:</strong> the agent picked a skill on its own. What would you change in
-the descriptions if it picked the wrong one?</p>
+<p><strong>Think about it:</strong> the agent picked a skill on its own. If it had picked the wrong one,
+what would you change in the descriptions?</p>
 <hr />
 <h2>Challenge 4: Build a brand-new skill </h2>
-<p><strong>Goal:</strong> add a seventh skill, <strong><code>interview-prep</code></strong>. When Iris is invited to an
-interview, it prepares questions and answer outlines for that exact offer.</p>
+<p><strong>Idea:</strong> add a seventh skill, <strong><code>interview-prep</code></strong>. When Iris is invited to an
+interview, it prepares questions and answer outlines for that exact offer. Want a different skill
+instead (salary negotiation, a thank-you note, a pep talk)? Go for it.</p>
 <p><strong>Start from the template:</strong></p>
 <pre><code class="language-bash">mkdir .claude/skills/interview-prep
 cp workshop/templates/interview-prep/SKILL.md .claude/skills/interview-prep/SKILL.md
 </code></pre>
 <p>Open the new file and replace every <strong>TODO</strong> with your own text.
-<em>(No peeking at the solutions until you tried! Ask a coach.)</em></p>
+<em>(Stuck? Ask a coach.)</em></p>
 <p><strong>Test 1: does it load?</strong> After restarting, ask: <code>What skills do you have?</code>
 Is <code>interview-prep</code> in the list of seven?</p>
 <p><strong>Test 2: does it trigger?</strong> Say it the way Iris would, <strong>without</strong> saying the
@@ -163,7 +164,7 @@ skill name:</p>
 <code>description:</code> is almost always the problem. Add the words Iris would really say.</p>
 <hr />
 <h2>Challenge 5: Give the agent a colleague </h2>
-<p><strong>Goal:</strong> an <strong>agent</strong> is not only a bigger skill. It is a different <em>worker</em>
+<p><strong>Idea:</strong> an <strong>agent</strong> is not only a bigger skill. It is a different <em>worker</em>
 with its own role and <strong>its own permissions</strong>. Build a reviewer who can read
 everything and change nothing.</p>
 <p><strong>Start from the template:</strong></p>
@@ -179,7 +180,7 @@ Then try to trick it: <code>@cv-checker fix the resume for me</code>. It should 
 or fail to write.</p>
 <p><strong>Done when:</strong> you get a table of rules with evidence, and the checker could
 not change any file.</p>
-<p><strong>Think about it:</strong> which of these belongs in a <em>skill</em> and which in an <em>agent</em>?</p>
+<p><strong>Think about it:</strong> sort these. Which belong in a <em>skill</em> and which in an <em>agent</em>?</p>
 <ul>
 <li>"How to adapt a resume for the US"</li>
 <li>"Who is allowed to change files"</li>
@@ -188,10 +189,10 @@ not change any file.</p>
 </ul>
 <hr />
 <h2>Challenge 6: Make it your own </h2>
-<p>Follow the "Make it your own" steps in the main <code>README.md</code>, with a <strong>fictional</strong>
-person:</p>
+<p>Turn the agent into a job-search agent for someone else. Follow the "Make it your own" steps in the main <code>README.md</code>, with a <strong>fictional</strong>
+person (a circus acrobat? a retired pirate? a baker who wants to become an astronaut?):</p>
 <ol>
-<li>Invent a person (not you!) and write their Lebenslauf in <code>profile/</code>.</li>
+<li>Invent a person (not you!) and write their CV in <code>profile/</code>.</li>
 <li>Change the roles and the city in <code>search-job-offers</code>.</li>
 <li>Pick your own colors in <code>styles/brand.md</code>.</li>
 <li>Update <em>Who Iris is</em> in <code>.claude/agents/iris-job-agent.md</code>, then run
@@ -220,7 +221,8 @@ this project while using a free model.</p>
 <p>If your skill is in that list but the agent does not pick it, improve the
 <code>description:</code>.</p>
 <hr />
-<h2>Wrap-up questions (for the group)</h2>
+<h2>Wrap-up questions</h2>
+<p>Think about them on your own, or bring them to the group at the end.</p>
 <ol>
 <li>What is the difference between a skill, an agent and a prompt, in your own words?</li>
 <li>Which change did the AI follow best? Which did it ignore?</li>
